@@ -7,6 +7,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const chalk = require('chalk')
 const nodemon = require('nodemon')
+var compression = require('compression');
+var helmet = require('helmet');
 
 /******************IMPORTING MONGODB MODULE INTO THE APPLICATION ***********************/
 const MongoClient = require('mongodb').MongoClient
@@ -28,11 +30,14 @@ var dashboardRouter = require('./routes/dashboard')
 var postsRouter = require('./routes/posts')
 
 var app = express();
-let mongodbUrl = ''
-let dbGet = process.env.DB_CONNECTION || mongodbUrl;
+
+app.use(compression()); //Compress all routes
+app.use(helmet());
+
+
 
 /************ create a connection to the mongodb database ********* */
-MongoClient.connect(dbGet,(err, client)=>{
+MongoClient.connect(process.env.DB_CONNECTION ,(err, client)=>{
   if(err)
   {
     console.log(chalk.red("error occured while connecting to the mongodb database "))
