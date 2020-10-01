@@ -5,15 +5,8 @@ const chalk = require('chalk')
 
 
 /* GET home page. */
-router.get('/lamistakes', function(req, res, next) {
-      const posts = req.app.locals.posts
-
-      posts
-      .findOne({"new":true})
-      .then(( post )=>{
-        res.render('index',{ post })
-      })
-        
+router.get('/lamistakes', function(req, res, next) { 
+        res.render('index')
 });
 
 
