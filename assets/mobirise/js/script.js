@@ -437,8 +437,10 @@
     });
 
 })(jQuery);
-!function() {
-	document.getElementsByClassName('engine')[0].getElementsByTagName('a')[0].removeAttribute('rel');
+
+
+/**!function() {
+	//document.getElementsByClassName('engine')[0].getElementsByTagName('a')[0].removeAttribute('rel');
 
     if(!document.getElementById('top-1')) {
         var e = document.createElement("section");
@@ -447,4 +449,4 @@
         e.innerHTML = '';
         document.body.insertBefore(e, document.body.childNodes[0]);
     }
-}();
+}();**/
