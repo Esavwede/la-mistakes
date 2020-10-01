@@ -29,7 +29,7 @@ var app = express();
 
 
 /************ create a connection to the mongodb database ********* */
-MongoClient.connect(`mongodb://localhost:27017/lamistakes`,(err, client)=>{
+MongoClient.connect(process.env.DB_CONNECTION,(err, client)=>{
   if(err)
   {
     console.log(chalk.red("error occured while connecting to the mongodb database "))
