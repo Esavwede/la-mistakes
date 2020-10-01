@@ -1,5 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
+const session = require('express-session')
+var MemoryStore = require('memorystore')(session)
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -12,7 +14,7 @@ const MongoClient = require('mongodb').MongoClient
 /******************IMPORTING AUTHENTICATION MODULES (Local Strategy) ************************************/
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
-const session = require('express-session')
+
 const flash = require('connect-flash')
 
 /*** At this point the application is set *** */
@@ -26,10 +28,11 @@ var dashboardRouter = require('./routes/dashboard')
 var postsRouter = require('./routes/posts')
 
 var app = express();
-
+let mongodbUrl = ''
+let dbGet = process.env.DB_CONNECTION || mongodbUrl;
 
 /************ create a connection to the mongodb database ********* */
-MongoClient.connect(process.env.DB_CONNECTION,(err, client)=>{
+MongoClient.connect(dbGet,(err, client)=>{
   if(err)
   {
     console.log(chalk.red("error occured while connecting to the mongodb database "))
@@ -66,13 +69,16 @@ app.use(express.static(path.join(__dirname, 'assets')));
 
 //*************CONFIGURING SECURITY PROTOCOLS ****/
 app.use( flash())
-app.use(session(
-  {
-    secret:'express',
-    resave: false,
-    saveUninitialized: false
-  }
-))//
+app.use(session({
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  
+}))
 
 app.use( passport.initialize())
 app.use( passport.session())

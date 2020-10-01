@@ -39,6 +39,32 @@
     </div>
 </section>
 
+
+
+
+<% for( let i = 0; i < errors.length; i++){%>
+    <section class="mbr-section" id="header3-47">
+        <div class="mbr-section__container container mbr-section__container--isolated">
+            <div class="mbr-header mbr-header--wysiwyg row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <h3 class="mbr-header__text" style="color: red;"> <%= errors[i] %> </h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <% } %> 
+    <% for( let i = 0; i < success.length; i++){%>
+        <section class="mbr-section" id="header3-47">
+            <div class="mbr-section__container container mbr-section__container--isolated">
+                <div class="mbr-header mbr-header--wysiwyg row">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <h3 class="mbr-header__text" style="color: red;"> ! <%= success[i] %> !</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <% } %> 
+
 <section class="mbr-section" id="header3-17">
     <div class="mbr-section__container container mbr-section__container--isolated">
         <div class="mbr-header mbr-header--wysiwyg row">
@@ -136,5 +162,9 @@
   <script src="/formoid/formoid.min.js"></script>
   
   
+<!-- Error Here -->
+
+
+
 </body>
 </html>

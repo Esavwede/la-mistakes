@@ -1,6 +1,6 @@
 {
   "name": "lamistakes",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -14,6 +14,7 @@
     "express": "~4.16.1",
     "express-session": "^1.17.1",
     "http-errors": "~1.6.3",
+    "memorystore": "^1.6.2",
     "mongodb": "^3.6.2",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.4",
@@ -23,5 +24,4 @@
   "engines": {
     "node": "12.16.2"
   }
-
 }
