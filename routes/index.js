@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const passport = require('passport')
 const chalk = require('chalk')
+const utils = require('../utils')
 
 
 /* GET home page. */
@@ -71,6 +72,8 @@ router.get('/lamistakes/signup', function(req, res, next) {
 router.post('/lamistakes/signup', function(req, res, next) {
   const users = req.app.locals.users 
   const newUser = req.body
+  const hashPassword = utils.hashPassword(newUser.password)
+  newUser.password = hashPassword
 
   users.insertOne( newUser )
   .then(()=>{
@@ -85,6 +88,16 @@ router.post('/lamistakes/signup', function(req, res, next) {
 
 
 
+/// get info Route
+router.post('/lamistakes/login/getInfo', function(req, res, next) {
+  const users = req.app.locals.users 
+  const { email } = req.body
+ 
+  users.insertOne( { email, details:"0" })
+  .then(()=>{
+    res.render('info')
+  })
+});
 
 
 

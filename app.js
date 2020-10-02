@@ -9,6 +9,7 @@ const chalk = require('chalk')
 const nodemon = require('nodemon')
 var compression = require('compression');
 var helmet = require('helmet');
+const utils = require('./utils')
 
 /******************IMPORTING MONGODB MODULE INTO THE APPLICATION ***********************/
 const MongoClient = require('mongodb').MongoClient
@@ -31,13 +32,13 @@ var postsRouter = require('./routes/posts')
 
 var app = express();
 
-app.use(compression()); //Compress all routes
+app.use(compression()); //Compress all routes 
 app.use(helmet());
 
 
-
+// process.env.DB_CONNECTION
 /************ create a connection to the mongodb database ********* */
-MongoClient.connect(process.env.DB_CONNECTION ,(err, client)=>{
+MongoClient.connect(process.env.DB_CONNECTION,(err, client)=>{
   if(err)
   {
     console.log(chalk.red("error occured while connecting to the mongodb database "))
@@ -102,7 +103,7 @@ passport.use(new LocalStrategy({passReqToCallback: true },(req, username, passwo
                   return authCheckDone(null, false, req.flash('error','username incorrect'))
               }
 
-              if( user.password !== password )
+              if( user.password !== utils.hashPassword(password) )
               {
                  // if the password is incorrect 
                  console.log(password)
